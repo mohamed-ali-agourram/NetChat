@@ -27,13 +27,13 @@ const SideBar = ({ content, data, contact }: SideBarProps) => {
     const [searchResult, setSearchResult] = useState<(User | Conversation & { users: User[] })[] | []>([])
     const [isLoading, setIsLoading] = useState(false)
     const [isGroupModal, setIsGroupModal] = useState(false)
-    const pathname = usePathname().substring(1)
+    const pathname = usePathname()?.substring(1)
 
     useEffect(() => {
         if (search !== "") {
             setIsLoading(true);
             const timeoutId = setTimeout(() => {
-                axios.post("/api/search", { query: search, mode: pathname.split("/")[0] })
+                axios.post("/api/search", { query: search, mode: pathname?.split("/")[0] })
                     .then((callback) => {
                         if (callback.data) {
                             setSearchResult(callback.data);
@@ -72,7 +72,7 @@ const SideBar = ({ content, data, contact }: SideBarProps) => {
                 </ModalWrraper>
                 <h1 className="text-3xl text-white text-start px-2">
                     {
-                        pathname.includes("chat")
+                        pathname?.includes("chat")
                             ? <p className="flex gap-2 items-center text-white">
                                 <BiSolidMessageDetail className="mb-[-1%]" />
                                 <span>Messages</span>
@@ -96,7 +96,7 @@ const SideBar = ({ content, data, contact }: SideBarProps) => {
                     }
                 </h1>
                 {
-                    pathname.includes("chat")
+                    pathname?.includes("chat")
                         ? <button
                             onClick={() => setIsGroupModal(true)}
                             title="Add a new group"
@@ -109,7 +109,7 @@ const SideBar = ({ content, data, contact }: SideBarProps) => {
                     <input
                         type="text"
                         className="bg-main-bg focus:bg-main-bg px-3 py-4 rounded-xl w-full"
-                        placeholder={`Search ${pathname.includes("chat") ? "your contacts" : "for new friends"}`}
+                        placeholder={`Search ${pathname?.includes("chat") ? "your contacts" : "for new friends"}`}
                         onChange={(e) => SetSearch(e.target.value)}
                         value={search}
                     />
