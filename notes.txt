@@ -1,0 +1,78 @@
+# Setup Cloudinary
+https://cloudinary.com/guides/front-end-development/integrating-cloudinary-with-next-js#:~:text=Next%20Cloudinary%20is%20a%20community,and%20maintained%20by%20the%20community.
+
+1) npm install next-cloudinary
+
+2) NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="<Your Cloud Name>"
+
+3) Creat A cloudiary account and get infos from dashboard
+
+4) Go To Form component and wrap the image icon or button with <CldUploadButton> and add options you want(maxFiles, maxSize, onupload...)
+
+5) create the uploadPreset that will contain the uploads for your app
+->cloudinary account->settings->upload->add upload preset->Set to 'Unsigned'->save->copy the name and past it on uploadPreset in <CldUploadButton>
+
+6) make onUpload function taht handles image uploads
+const handleImageUpload = (result: any)=>{
+    axios.post("/api/messages", { image: result?.info?.secure_url, convoId: id })
+}
+
+7) add cloudiary domain to next config
+images: {
+    domains: [
+        'res.cloudinary.com'
+    ]
+}
+
+
+# Setup PUSHER
+## packages:
+>npm install pusher pusher-js
+>npm i lodash
+>npm i -D @types/lodash
+
+1) Create an account on
+https://pusher.com/
+
+2) Create an app
+
+3) get App Keys for .env
+
+4) create a pusher exported server and client (@/app/libs/pusher.ts)
+import PusherServer from 'pusher'
+import PusherClient from 'pusher-js'
+
+export const pusherServer = new PusherServer({
+    appId: process.env.PUSHER_APP_ID!,
+    key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY!,
+    secret: process.env.PUSHER_SECRET!,
+    cluster: 'eu',
+    useTLS: true,
+});
+
+export const pusherClient = new PusherClient(
+    process.env.NEXT_PUBLIC_PUSHER_APP_KEY!,
+    {
+        channelAuthorization: {
+            endpoint: '/api/pusher/auth',
+            transport: 'ajax',
+        },
+        cluster: 'eu',
+    }
+);
+5)create puhser channels on the APIs/server
+import { pusherServer } from "@/app/libs/pusher";
+await pusherServer.trigger(channel: string | string[], event: string, data: any, params?: Pusher.TriggerParams | undefined)
+
+6)add the channels on the fron end that will respond and bind to the events you set on the server
+useEffect(() => {
+    pusherClient.subscribe(convoId!)
+    lastMessageRef.current?.scrollIntoView()
+
+    pusherClient.bind("messages:new", messageHandler)
+
+    return () => {
+        pusherClient.unsubscribe(convoId!)
+        pusherClient.unbind("messages:new", messageHandler)
+    }
+}, [convoId, lastMessageRef])

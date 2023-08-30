@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    min-height: 100vh;
+    background: #131216;
+    color: white;
+    overflow-y: hidden;
+}
+
+input:focus {
+    outline: none;
+    background: transparent;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    caret-color: white;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: unset;
+}
+
+.disabled {
+    background: #7a717173 !important;
+    color: white !important;
+}
+
+.disabled:hover {
+    background: #7a717173 !important;
+}
+
+.profile {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.box-shadow {
+    box-shadow: rgba(124, 118, 118, 0.13) 2.4px 2.4px 3.2px;
+    z-index: 1;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+    max-height: 15vh;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: rgba(211, 211, 211, 0);
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgb(53, 52, 52);
+    border-radius: 2px;
+}

@@ -1,0 +1,16 @@
+.from-group {
+    & div {
+        width: 90%;
+
+        & label {
+            color: grey;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        & input {
+            background: transparent;
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,103 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id            String    @id @default(auto()) @map("_id") @db.ObjectId
+    name          String?
+    email         String?   @unique
+    emailVerified DateTime?
+    image         String?
+    password      String?
+    bio           String?
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+
+    messages Message[]
+    accounts Account[]
+    sessions Session[]
+
+    adminOfGroups String[]       @db.ObjectId
+    groups        Conversation[] @relation("AdminRelation")
+
+    conversationsId String[]       @db.ObjectId
+    conversations   Conversation[] @relation("UsersRelation", fields: [conversationsId], references: [id])
+
+    seenMessagesIds String[]  @db.ObjectId
+    seenMessages    Message[] @relation("UserToSeenMessage", fields: [seenMessagesIds], references: [id])
+}
+
+model Account {
+    id                String  @id @default(auto()) @map("_id") @db.ObjectId
+    userId            String  @db.ObjectId
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? @db.String
+    access_token      String? @db.String
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.String
+    session_state     String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+}
+
+model Session {
+    id           String   @id @default(auto()) @map("_id") @db.ObjectId
+    sessionToken String   @unique
+    userId       String   @db.ObjectId
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+    identifier String   @id @default(auto()) @map("_id") @db.ObjectId
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+}
+
+model Message {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    body      String?
+    image     String?
+    audio     String?
+    createdAt DateTime @default(now())
+
+    conversationId String       @db.ObjectId
+    conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+    senderId String @db.ObjectId
+    sender   User   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+    seenIds String[] @db.ObjectId
+    seen    User[]   @relation("UserToSeenMessage", fields: [seenIds], references: [id])
+}
+
+model Conversation {
+    id            String   @id @default(auto()) @map("_id") @db.ObjectId
+    name          String?
+    createdAt     DateTime @default(now())
+    lastMessageAt DateTime @default(now())
+    isGroup       Boolean?
+    groupImage    String?
+    messagesId    String[] @db.ObjectId
+
+    adminId String @db.ObjectId
+    admin   User   @relation("AdminRelation", fields: [adminId], references: [id])
+
+    messages Message[]
+
+    usersId String[] @db.ObjectId
+    users   User[]   @relation("UsersRelation", fields: [usersId], references: [id])
+}
