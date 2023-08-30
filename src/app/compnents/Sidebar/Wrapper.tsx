@@ -14,7 +14,7 @@ interface WrapperProps {
   children: React.ReactNode
   content?: React.ReactNode
   data?: any
-  dataLength: number
+  dataLength?: number
   contact?: User[]
 }
 
@@ -24,7 +24,7 @@ const Wrapper = ({ children, content, data, dataLength, contact }: WrapperProps)
   const pathname = usePathname()
 
   const isOpen = useMemo(() => {
-    return !!pathname.match(/^\/chat\/[^/]+$/);
+    return !!pathname?.match(/^\/chat\/[^/]+$/);
   }, [pathname])
 
 
@@ -46,7 +46,7 @@ const Wrapper = ({ children, content, data, dataLength, contact }: WrapperProps)
       md:flex-col-reverse`,
         isOpen ? "md:hidden" : "md:flex"
       )}>
-        <NavigationBar dataLength={dataLength} user={user as User} showProfile={showProfile} />
+        <NavigationBar dataLength={dataLength!} user={user as User} showProfile={showProfile} />
         <SideBar contact={contact} data={data} content={content} />
       </div>
 

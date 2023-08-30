@@ -15,7 +15,7 @@ interface NavigationBarProps {
 
 const NavigationBar = ({ showProfile, user, dataLength }: NavigationBarProps) => {
     const pathname = usePathname()
-    const routes = useMemo(() => getRoutes(pathname), [pathname])
+    const routes = useMemo(() => getRoutes(pathname!), [pathname])
 
     return (
         <nav className="flex flex-col relative items-center justify-between bg-main-bg box-shadow w-[6vw] xl:w-[8vw] md:w-screen md:h-[10vh] md:flex-row">
