@@ -65,7 +65,7 @@ const MembersList = ({ members, adminId, mode, updateMembers, currentUser }: Mem
                             src={user?.image ? user?.image : "/images/default-profile.jpg"}
                             alt="user_profile"
                             isGroup={false}
-                            addedClass="w-[7vh] h-[7vh]"
+                            divClass="w-[7vh] h-[7vh]"
                         />
                         <div className="flex flex-col w-full">
                             <div className="relative flex w-full gap-3 items-center">

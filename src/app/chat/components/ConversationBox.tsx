@@ -46,9 +46,15 @@ const ConversationBox = ({ conversation, currentUser }: Props) => {
   }, [isAdmin, conversation])
 
   useEffect(() => {
-    if (currentUser) {
-      if (lastMessage?.senderId === currentUser.id) setIsCurrentUser(true)
-      if (conversation.adminId === currentUser.id) setIsAdmin(true)
+    if (lastMessage?.senderId === currentUser.id) {
+      setIsCurrentUser(true)
+    } else {
+      setIsCurrentUser(false)
+    }
+    if (conversation.adminId === currentUser.id) {
+      setIsAdmin(true)
+    } else {
+      setIsAdmin(false)
     }
   }, [currentUser, conversation, lastMessage])
 
