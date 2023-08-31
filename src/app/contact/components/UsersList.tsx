@@ -5,7 +5,7 @@ const UsersList = ({ users }: { users: User[] }) => {
 
   return (
     <div>
-      <ul className="flex flex-col gap-3 w-full">
+      <ul className="flex flex-col gap-1 w-full">
         {
           users.map((user) => {
             return <li key={user.id}>

@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react"
 import { TiUserDelete } from "react-icons/ti"
 import clsx from "clsx"
 import { useMemo } from "react"
+import ImageComponent from "@/app/compnents/ImageComponent"
 
 interface MembersListProps {
     members: User[]
@@ -65,16 +66,12 @@ const MembersList = ({ members, adminId, mode, updateMembers }: MembersListProps
                             p-1`,
                             !mode && "hover:scale-105 cursor-pointer"
                         )}>
-                        <div className="w-[9vh] overflow-hidden rounded-full">
-                            <Image
-                                src={user?.image ? user?.image : "/images/default-profile.jpg"}
-                                alt="user_profile"
-                                height={100}
-                                width={100}
-                                className="rounded-full cursor-pointer object-cover w-[100%] h-[100%]"
-                            />
-                        </div>
-
+                        <ImageComponent
+                            src={user?.image ? user?.image : "/images/default-profile.jpg"}
+                            alt="user_profile"
+                            isGroup={false}
+                            addedClass="w-[9vh] h-[9vh]"
+                        />
                         <div className="flex flex-col w-full">
                             <div className="relative flex w-full gap-3 items-center">
                                 <p>{user.email === user_email ? "(You)" : user.name}</p>

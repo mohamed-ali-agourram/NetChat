@@ -201,14 +201,14 @@ const Profile = ({ hideProfile, email }: ProfileProps) => {
             <MdAlternateEmail />
             <span>Email</span>
           </p>
-          <p className="text-[15px]">{currentUser?.email ?? <BeatLoader size={10} className="text-white" />}</p>
+          <p className="text-[15px]">{currentUser?.email ?? <BeatLoader size={6} color="white" />}</p>
         </div>
         <div className="flex flex-col gap-1 items-start">
           <p className="text-[13px] sm:text-[16px] font-bold text-gray-600 flex items-center gap-1">
             <CiCalendarDate />
             <span>Joined At</span>
           </p>
-          <p className="text-[14px]">{joindAt ?? <BeatLoader size={10} className="text-white" />}</p>
+          <p className="text-[14px]">{joindAt ?? <BeatLoader size={6} color="white" />}</p>
         </div>
       </div>
 
