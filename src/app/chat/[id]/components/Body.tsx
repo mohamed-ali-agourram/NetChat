@@ -84,7 +84,7 @@ const Body = ({ messages, setMessages, chat, admin, toggleSideBar, lastMessageRe
     return <div
         onScroll={(e) => handleScroll(e)}
         style={{ background: "radial-gradient(circle, rgba(38,41,55,1) 0%, rgba(26,27,34,1) 100%)" }}
-        className='h-[90vh] pt-[10vh] md:pt-[12vh] sm:pt-[9vh] bg-main-bg p-3 flex flex-col justify-between gap-3 relative overflow-y-scroll'>
+        className='h-[82vh] bg-main-bg p-3 flex flex-col justify-between gap-3 relative overflow-y-scroll'>
         {
             !chat.isGroup
                 ? <div className="w-full flex flex-col items-center justify-center gap-[1px] py-3">
@@ -98,7 +98,7 @@ const Body = ({ messages, setMessages, chat, admin, toggleSideBar, lastMessageRe
                     </div>
                     <p onClick={toggleSideBar} className="text-[15px] cursor-pointer text-gray-500 font-bold">{otherUser?.name ?? "Deleted Account"}</p>
                     <p className="text-[13px] text-gray-500">{otherUser?.bio ? otherUser?.bio : ""}</p>
-                    <p className="text-[11px] text-center text-gray-500">{admin?.name ? admin?.name : null} Started This Conversation on {createdAt}</p>
+                    <p className="text-[11px] text-center text-gray-500">{admin?.name ? admin?.name : null} Started This Conversation on <span className="text-[10px]">{createdAt}</span></p>
                 </div>
                 : <div className="w-full flex flex-col items-center justify-center gap-1 py-3">
                     <div onClick={toggleSideBar}>
@@ -110,7 +110,7 @@ const Body = ({ messages, setMessages, chat, admin, toggleSideBar, lastMessageRe
                         />
                     </div>
                     <p onClick={toggleSideBar} className="text-[15px] text-gray-500 font-bold cursor-pointer">{chat.name}</p>
-                    <p className="text-[11px] text-center text-gray-500">{admin?.name ? (admin?.email === userEmail ? "You created this group chat" : `Created  by ${admin?.name}`) : null} on {createdAt}</p>
+                    <p className="text-[11px] text-center text-gray-500">{admin?.name ? (admin?.email === userEmail ? "You created this group chat" : `Created  by ${admin?.name}`) : null} on <span className="text-[10px]">{createdAt}</span></p>
                 </div>
         }
         <ul className="flex flex-col justify-end gap-2">

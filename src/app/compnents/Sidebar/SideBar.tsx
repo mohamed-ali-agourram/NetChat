@@ -49,8 +49,11 @@ const SideBar = ({ content, data, contact }: SideBarProps) => {
     }, [search, pathname])
 
     return (
-        <div className={clsx(`
+        <div
+        style={{boxShadow: "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px"}}
+        className={clsx(`
             w-[30vw]
+            z-10
             xl:w-[35vw]
             md:w-screen
             md:h-[90vh]
@@ -73,7 +76,7 @@ const SideBar = ({ content, data, contact }: SideBarProps) => {
                 <h1 className="text-3xl text-white text-start px-2">
                     {
                         pathname?.includes("chat")
-                            ? <p className="flex gap-2 items-center text-white">
+                            ? <p className="font flex gap-2 items-center text-white">
                                 <BiSolidMessageDetail className="mb-[-1%]" />
                                 <span>Messages</span>
                                 {
@@ -83,7 +86,7 @@ const SideBar = ({ content, data, contact }: SideBarProps) => {
                                 }
 
                             </p>
-                            : <p className="flex gap-2 items-center text-white">
+                            : <p className="font flex gap-2 items-center text-white">
                                 <MdPeopleAlt />
                                 <span>Contact</span>
                                 {

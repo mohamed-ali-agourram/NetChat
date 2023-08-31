@@ -61,8 +61,8 @@ const Main = ({
             -translate-x-1/2
             transition duration-[300ms]
             z-10
-            text-5xl
-            md:text-4xl
+            text-4xl
+            md:text-3xl
             hover:scale-110
             `,
             isScrolling ? "opacity-1" : "opacity-0"

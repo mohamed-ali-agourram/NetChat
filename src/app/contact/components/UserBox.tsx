@@ -27,7 +27,7 @@ const UserBox = ({ user, isSearch }: { user: User, isSearch?: boolean }) => {
       }
       <div
         onClick={toChat}
-        className="flex gap-2 items-start p-2 rounded-xl cursor-pointer hover:bg-[#0000003d] transition delay-[5ms]">
+        className="flex gap-2 items-start p-3 rounded-xl cursor-pointer hover:bg-[#0000003d] transition delay-[5ms]">
         <ImageComponent
           src={user?.image!}
           alt={user?.name!}

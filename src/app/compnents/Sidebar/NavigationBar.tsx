@@ -18,7 +18,7 @@ const NavigationBar = ({ showProfile, user, dataLength }: NavigationBarProps) =>
     const routes = useMemo(() => getRoutes(pathname!), [pathname])
 
     return (
-        <nav className="flex flex-col relative items-center justify-between bg-main-bg box-shadow w-[6vw] xl:w-[8vw] md:w-screen md:h-[10vh] md:flex-row">
+        <nav className="flex flex-col relative items-center justify-between bg-main-bg w-[6vw] xl:w-[8vw] md:w-screen md:h-[10vh] md:flex-row">
 
             <div className="w-full flex flex-col md:h-full">
                 <Link href="/chat" className="flex justify-center text-4xl text-white text-center py-5 cursor-pointer md:hidden">

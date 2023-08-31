@@ -1,12 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Josefin+Sans:wght@300&family=Kaushan+Script&display=swap');
 
 body {
     min-height: 100vh;
     background: #131216;
     color: white;
     overflow-y: hidden;
+}
+
+.font {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Kaushan Script', cursive;
 }
 
 input:focus {

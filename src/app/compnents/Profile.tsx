@@ -103,7 +103,6 @@ const Profile = ({ hideProfile, email }: ProfileProps) => {
         sm:justify-normal
         gap-2
         xsm:gap-6
-        p-2
     `,
     )}
   >

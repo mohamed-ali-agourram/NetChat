@@ -8,7 +8,7 @@ const loading = () => {
                 <div className="text-[25vh]">
                     <AiFillWechat />
                 </div>
-                <h1 className="text-2xl font-bold">Select a user to start a conversation</h1>
+                <h1 className="font text-2xl font-bold">Select a user to start a conversation</h1>
             </main>
         </Main>
     )

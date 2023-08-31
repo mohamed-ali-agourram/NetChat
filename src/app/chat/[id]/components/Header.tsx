@@ -67,7 +67,9 @@ const Header = ({ chat, initialMembers, contact, isSideBar, toggleSideBar }: Hea
                 members={members}
                 updateMembers={updateMembers}
             />
-            <div className="fixed top-0 flex z-10 p-3 sm:p-1 w-[100%] h-[10vh] md:h-[12vh] sm:h-[9vh] bg-[#18171df2] justify-between" onClick={() => {
+            <div
+            style={{boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px"}}
+            className="flex z-10 p-3 sm:p-1 w-[100%] h-[10vh] md:h-[12vh] sm:h-[9vh] bg-[#18171df2] justify-between" onClick={() => {
                 if (window.innerWidth <= 425) {
                     toggleSideBar()
                 }
@@ -108,7 +110,7 @@ const Header = ({ chat, initialMembers, contact, isSideBar, toggleSideBar }: Hea
                 </div>
 
                 <button
-                    className="text-[30px] cursor-pointer delay-75 hover:scale-105 sm:hidden"
+                    className="text-[30px] z-20 cursor-pointer delay-75 hover:scale-105 block sm:hidden"
                     title={isSideBar ? "Close SideBar" : "Open SideBar"}
                     onClick={toggleSideBar}
                 >

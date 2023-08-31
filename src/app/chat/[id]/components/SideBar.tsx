@@ -152,16 +152,12 @@ const SideBar = ({ isOpen, toggle, isGroup, user, chat, members, updateMembers, 
                             isOpen={isImageOpen}
                             isCloseButton={false}
                         >
-                            <div className="w-[40vh] sm:w-[50vh] overflow-hidden rounded-full">
-                                <Image
-                                    src={user?.image ? user?.image : "/images/default-profile.jpg"}
-                                    alt="user_profile"
-                                    height={100}
-                                    width={100}
-                                    className="rounded-full cursor-pointer object-cover w-[100%] h-[100%]"
-                                />
-                            </div>
-
+                            <ImageComponent
+                                src={user?.image ? user?.image : "/images/default-profile.jpg"}
+                                alt="user_profile"
+                                isGroup={false}
+                                divClass="w-[40vh] sm:w-[50vh] h-[40vh] sm:h-[50vh]"
+                            />
                         </PopUpModal>
                         <p>{user?.name ?? "Deleted Account"}</p>
                         <p className="text-gray-500 text-[15px]">Offline</p>

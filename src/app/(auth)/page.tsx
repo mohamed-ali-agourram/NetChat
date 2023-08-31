@@ -11,7 +11,7 @@ const Home = () => {
             <main
                 style={{ background: "linear-gradient(41deg, rgba(39,42,55,0.9752275910364145) 40%, rgba(39,42,55,0.3449754901960784) 100%)" }}>
                 <div className="h-screen flex flex-col text-white w-[41.5%] lg:w-[75%] sm:w-[100%]">
-                    <header className="p-8 lg:py-3 flex gap-1 content-center text-3xl sm:self-center">
+                    <header className="font p-8 lg:py-3 flex gap-1 content-center text-3xl sm:self-center">
                         <AiFillWechat style={{ color: "#075985" }} />
                         <span>NetChat</span>
                     </header>
