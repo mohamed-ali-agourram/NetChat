@@ -1,9 +1,9 @@
 import prisma from "@/app/libs/prisma";
-import getCurrentUser_B from "@/app/helpers/getCurrentUser_B";
+import getCurrentUser from "@/app/helpers/getCurrentUser";
 
 export async function getConversations() {
     try {
-        const currentUser = await getCurrentUser_B()
+        const currentUser = await getCurrentUser()
         if (!currentUser?.id || !currentUser?.id) {
             return []
         }

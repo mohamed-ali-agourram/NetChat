@@ -1,26 +1,16 @@
 "use client"
 import Image from "next/image"
 import type { User } from "@prisma/client"
-import getCurrentUser from "@/app/helpers/getCurrentUser_F"
 import { useEffect, useState } from "react"
 
 interface AvatarProps{
     showProfile: ()=>void
-    user: User
+    currentUser: User
 }
 
-const Avatar = ({ showProfile, user }: AvatarProps) => {
-    const [ currentUser, setCurrentUser ] = useState<User | undefined>(undefined)
-
-    useEffect(()=>{
-        getCurrentUser(user?.email!)
-        .then((callback)=>{
-            setCurrentUser(callback)
-        })
-    }, [user])
-
+const Avatar = ({ showProfile, currentUser }: AvatarProps) => {
     return (
-        <div onClick={showProfile} title={user?.name!} className="text-white my-2 mx-1 cursor-pointer rounded-fulL w-[8.5vh] h-[8.5vh] relative md:order-first md:hidden">
+        <div onClick={showProfile} title={currentUser?.name!} className="text-white my-2 mx-1 cursor-pointer rounded-fulL w-[8.5vh] h-[8.5vh] relative md:order-first md:hidden">
             <Image
                 src={currentUser?.image ? currentUser?.image : "/images/default-profile.jpg"}
                 alt={currentUser?.name ? currentUser?.name : "user_image"}

@@ -3,7 +3,7 @@ import { getMessages } from "@/app/helpers/getMessages"
 import { getContact } from "@/app/helpers/getContact"
 import getUser from "@/app/helpers/getUser"
 import Main from "./Main"
-
+import getCurrentUser from "@/app/helpers/getCurrentUser"
 
 interface chatParams {
   id: string
@@ -15,9 +15,11 @@ const page = async ({ params }: { params: chatParams }) => {
   const admin = await getUser(chat?.adminId)
   const messages = await getMessages(params.id)
   const contact = await getContact()
+  const currentUser = await getCurrentUser()
 
   return (
     <Main
+      currentUser={currentUser!}
       admin={admin!}
       chat={chat!}
       contact={contact}

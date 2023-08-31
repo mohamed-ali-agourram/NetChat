@@ -10,27 +10,26 @@ import { BiPencil, BiSolidUserRectangle } from "react-icons/bi"
 import { FaTrash } from "react-icons/fa"
 import { CiCalendarDate } from "react-icons/ci";
 import { MdAlternateEmail } from "react-icons/md";
-import useCurrentUser from "../hooks/useCurrentUser";
 import PopUpModal from "./Modals/PopUpModal";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import type { User } from "@prisma/client";
 import { BeatLoader } from "react-spinners";
 import DeleteModal from "./Modals/DeleteModal";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface ProfileProps {
-  email: string
   isProfile: boolean
   hideProfile: () => void
+  currentUser: User
 }
 
-const Profile = ({ hideProfile, email }: ProfileProps) => {
+const Profile = ({ hideProfile, currentUser }: ProfileProps) => {
   const [isImageOpen, setIsImageOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isModal, setIsModal] = useState(false)
   const router = useRouter()
-  const currentUser = useCurrentUser(email)
   const [name, setName] = useState(currentUser?.name ?? "");
   const [bio, setBio] = useState(currentUser?.bio ?? "");
 

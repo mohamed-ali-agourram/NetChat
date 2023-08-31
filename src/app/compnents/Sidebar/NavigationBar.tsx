@@ -9,11 +9,11 @@ import type { User } from "@prisma/client";
 
 interface NavigationBarProps {
     showProfile: () => void
-    user: User
+    currentUser: User
     dataLength: number
 }
 
-const NavigationBar = ({ showProfile, user, dataLength }: NavigationBarProps) => {
+const NavigationBar = ({ showProfile, currentUser, dataLength }: NavigationBarProps) => {
     const pathname = usePathname()
     const routes = useMemo(() => getRoutes(pathname!), [pathname])
 
@@ -31,7 +31,7 @@ const NavigationBar = ({ showProfile, user, dataLength }: NavigationBarProps) =>
                 </ul>                
             </div>
             
-            <Avatar user={user as User} showProfile={showProfile} />
+            <Avatar currentUser={currentUser} showProfile={showProfile} />
         </nav>
     )
 }

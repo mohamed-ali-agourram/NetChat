@@ -1,11 +1,11 @@
 import prisma from "@/app/libs/prisma";
 import { NextResponse } from "next/server";
-import getCurrentUser_B from "@/app/helpers/getCurrentUser_B";
+import getCurrentUser from "@/app/helpers/getCurrentUser";
 import { pusherServer } from "@/app/libs/pusher";
 
 export async function POST(request: Request) {
     try {
-        const currentUser = await getCurrentUser_B()
+        const currentUser = await getCurrentUser()
 
         if (!currentUser?.id || !currentUser?.email) {
             return new NextResponse('Unauthorized', { status: 401 });

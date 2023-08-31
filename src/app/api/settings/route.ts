@@ -1,10 +1,10 @@
-import getCurrentUser_B from "@/app/helpers/getCurrentUser_B"
+import getCurrentUser from "@/app/helpers/getCurrentUser"
 import prisma from "@/app/libs/prisma"
 import { NextResponse } from "next/server"
 
 export async function DELETE() {
     try {
-        const currentUser = await getCurrentUser_B()
+        const currentUser = await getCurrentUser()
         if (!currentUser?.id) return NextResponse.json("Unauthorized", { status: 401 })
 
         const profile = await prisma.user.findUnique({
@@ -29,7 +29,7 @@ export async function DELETE() {
 
 export async function PUT(request: Request) {
     try {
-        const currentUser = await getCurrentUser_B()
+        const currentUser = await getCurrentUser()
         if (!currentUser?.id) return NextResponse.json("Unauthorized", { status: 401 })
 
         const req_body = await request.json()

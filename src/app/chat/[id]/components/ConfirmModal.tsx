@@ -31,9 +31,10 @@ interface ConfirmModalProps {
     updateMembers: (mode: string, id?: string, newMembers?: string[]) => void
     members: User[]
     contact?: User[]
+    currentUser: User
 }
 
-const ConfirmModal = ({ id, isGroup, hideModal, mode, chat, members, handleUplaodImage, updateMembers, contact }: ConfirmModalProps) => {
+const ConfirmModal = ({ id, isGroup, hideModal, mode, chat, members, handleUplaodImage, updateMembers, contact, currentUser }: ConfirmModalProps) => {
     const [groupName, setGroupName] = useState(chat?.name ?? "")
     const [isLoading, setIsLoading] = useState(false)
     const [membersEmails, SetMembersEmails] = useState<string[]>([])
@@ -181,7 +182,7 @@ const ConfirmModal = ({ id, isGroup, hideModal, mode, chat, members, handleUplao
                             : chat?.name
                     }
                 </div>
-                <MembersList updateMembers={updateMembers} members={members!} adminId={chat?.adminId!} mode="edit" />
+                <MembersList currentUser={currentUser} updateMembers={updateMembers} members={members!} adminId={chat?.adminId!} mode="edit" />
                 <ThemeProvider theme={darkTheme}>
                     <InputLabel style={{ display: "flex", gap: "5px", justifyContent: "flex-start", alignItems: "center" }} id="demo-multiple-chip-label">
                         <BsPersonFillAdd className="text-gray-600 text-[20px]" />

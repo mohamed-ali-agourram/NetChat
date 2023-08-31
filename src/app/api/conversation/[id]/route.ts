@@ -1,11 +1,11 @@
-import getCurrentUser_B from "@/app/helpers/getCurrentUser_B"
+import getCurrentUser from "@/app/helpers/getCurrentUser"
 import prisma from "@/app/libs/prisma"
 import { pusherServer } from "@/app/libs/pusher"
 import { NextResponse } from "next/server"
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
     try {
-        const user = await getCurrentUser_B()
+        const user = await getCurrentUser()
         if (!user?.id || !user?.email) return NextResponse.json("Unauthorized", { status: 501 })
 
         const { id } = params

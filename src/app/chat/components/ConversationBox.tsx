@@ -1,17 +1,20 @@
 "use client"
-import Image from "next/image"
 import useOtherUser from "@/app/hooks/useOtherUser"
 import clsx from "clsx"
 import { usePathname } from "next/navigation"
 import { useMemo, useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { Message } from "@prisma/client"
+import { Message, User } from "@prisma/client"
 import { useSession } from "next-auth/react"
-import getCurrentUser from "@/app/helpers/getCurrentUser_F"
 import { format, isToday, isYesterday } from 'date-fns';
 import ImageComponent from "@/app/compnents/ImageComponent"
 
-const ConversationBox = ({ conversation }: { conversation: FullConvoType }) => {
+interface Props {
+  conversation: FullConvoType
+  currentUser: User
+}
+
+const ConversationBox = ({ conversation, currentUser }: Props) => {
   const [isSeen, setIsSeen] = useState(false)
   const [isCurrentUser, setIsCurrentUser] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
@@ -21,15 +24,6 @@ const ConversationBox = ({ conversation }: { conversation: FullConvoType }) => {
   const user = useOtherUser(conversation)
   const router = useRouter()
   const pathname = usePathname()
-  const session = useSession()
-  const user_email = session.data?.user?.email
-
-  const currentUserCallback = useMemo(() => {
-    if (user_email) {
-      return getCurrentUser(user_email);
-    }
-    return null;
-  }, [user_email]);
 
   const lastMessage: Message | undefined = useMemo(() => {
     if (conversation.messages) {
@@ -52,13 +46,11 @@ const ConversationBox = ({ conversation }: { conversation: FullConvoType }) => {
   }, [isAdmin, conversation])
 
   useEffect(() => {
-    if (currentUserCallback) {
-      currentUserCallback.then(callback => {
-        if (lastMessage?.senderId === callback.id) setIsCurrentUser(true)
-        if (conversation.adminId === callback.id) setIsAdmin(true)
-      })
+    if (currentUser) {
+      if (lastMessage?.senderId === currentUser.id) setIsCurrentUser(true)
+      if (conversation.adminId === currentUser.id) setIsAdmin(true)
     }
-  }, [currentUserCallback, conversation, lastMessage])
+  }, [currentUser, conversation, lastMessage])
 
   const formattedDate = useMemo(() => {
     if (lastMessage?.createdAt) {
@@ -78,21 +70,18 @@ const ConversationBox = ({ conversation }: { conversation: FullConvoType }) => {
   }, [lastMessage?.createdAt]);
 
   useEffect(() => {
-    if (currentUserCallback) {
-      currentUserCallback.then(callback => {
-        if (lastMessage) {
-          if (lastMessage.senderId === callback.id || lastMessage?.seenIds.includes(callback.id)) {
-            setIsSeen(true)
-          } else {
-            setIsSeen(false)
-          }
-        } else {
+    if (currentUser) {
+      if (lastMessage) {
+        if (lastMessage.senderId === currentUser.id || lastMessage?.seenIds.includes(currentUser.id)) {
           setIsSeen(true)
+        } else {
+          setIsSeen(false)
         }
-
-      })
+      } else {
+        setIsSeen(true)
+      }
     }
-  }, [currentUserCallback, lastMessage, lastMessage?.seenIds, lastMessage?.senderId]);
+  }, [currentUser, lastMessage, lastMessage?.seenIds, lastMessage?.senderId]);
 
   const isSelected = useMemo(() => {
     return pathname?.split("/")[2] === conversation.id

@@ -1,9 +1,8 @@
 "use client"
 import NavigationBar from "./NavigationBar"
 import SideBar from "./SideBar"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Profile from "../Profile";
-import { useSession } from "next-auth/react";
 import { useMemo } from "react";
 import { User } from "@prisma/client";
 import { usePathname } from "next/navigation";
@@ -16,19 +15,16 @@ interface WrapperProps {
   data?: any
   dataLength?: number
   contact?: User[]
+  currentUser?: User
 }
 
-const Wrapper = ({ children, content, data, dataLength, contact }: WrapperProps) => {
+const Wrapper = ({ children, content, data, dataLength, contact, currentUser }: WrapperProps) => {
   const [isProfile, setIsProfile] = useState(false)
-  const session = useSession()
   const pathname = usePathname()
 
   const isOpen = useMemo(() => {
     return !!pathname?.match(/^\/chat\/[^/]+$/);
   }, [pathname])
-
-
-  const user = useMemo(() => session?.data?.user, [session])
 
   const showProfile = () => {
     setIsProfile(true)
@@ -46,7 +42,7 @@ const Wrapper = ({ children, content, data, dataLength, contact }: WrapperProps)
       md:flex-col-reverse`,
         isOpen ? "md:hidden" : "md:flex"
       )}>
-        <NavigationBar dataLength={dataLength!} user={user as User} showProfile={showProfile} />
+        <NavigationBar dataLength={dataLength!} currentUser={currentUser!} showProfile={showProfile} />
         <SideBar contact={contact} data={data} content={content} />
       </div>
 
@@ -55,11 +51,16 @@ const Wrapper = ({ children, content, data, dataLength, contact }: WrapperProps)
         onClose={() => setIsProfile(false)}
         isCloseButton={true}
       >
-        <Profile
-          email={user?.email as string}
-          isProfile={isProfile}
-          hideProfile={hideProfile}
-        />
+        {
+          currentUser
+            ? <Profile
+              isProfile={isProfile}
+              hideProfile={hideProfile}
+              currentUser={currentUser}
+            />
+            : null
+        }
+
       </PopUpModal>
 
       <div className="w-[80vw] h-screen">

@@ -1,9 +1,9 @@
 import prisma from "@/app/libs/prisma";
-import getCurrentUser_B from "./getCurrentUser_B";
+import getCurrentUser from "./getCurrentUser";
 
 export async function getUnreadMessages() {
     try {
-        const currentUser = await getCurrentUser_B()
+        const currentUser = await getCurrentUser()
         if (!currentUser?.id || !currentUser?.email) return []
         const messages = await prisma.message.findMany({
             where: {

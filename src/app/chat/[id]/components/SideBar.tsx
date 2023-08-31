@@ -10,8 +10,6 @@ import { useMemo, useState } from "react";
 import { format } from "date-fns";
 import PopUpModal from "@/app/compnents/Modals/PopUpModal";
 import ConfirmModal from "./ConfirmModal";
-import { useSession } from "next-auth/react";
-import useCurrentUser from "@/app/hooks/useCurrentUser";
 import { BsCalendar2Date } from "react-icons/bs"
 import ImageComponent from "@/app/compnents/ImageComponent";
 
@@ -23,16 +21,14 @@ interface SideBarProps {
     chat?: Conversation & { users: User[] }
     members: User[]
     contact: User[]
+    currentUser: User
     updateMembers: (mode: string, id?: string, newMembers?: string[]) => void
 }
 
-const SideBar = ({ isOpen, toggle, isGroup, user, chat, members, updateMembers, contact }: SideBarProps) => {
+const SideBar = ({ isOpen, toggle, isGroup, user, chat, members, updateMembers, contact, currentUser }: SideBarProps) => {
     const [isConfirm, setIsConfirm] = useState(false)
     const [modalMode, setModalMode] = useState("")
     const [isImageOpen, setIsImageOpen] = useState(false)
-    const session = useSession()
-    const user_email = session.data?.user?.email
-    const currentUser = useCurrentUser(user_email)
 
     const handleUplaodImage = (result: any) => {
         axios.put("/api/settings", { isGroup: true, image: result?.info?.secure_url, convoId: chat?.id })
@@ -90,6 +86,7 @@ const SideBar = ({ isOpen, toggle, isGroup, user, chat, members, updateMembers, 
                 updateMembers={updateMembers}
                 members={members!}
                 contact={contact}
+                currentUser={currentUser!}
             />
         </PopUpModal>
         <button
@@ -133,7 +130,7 @@ const SideBar = ({ isOpen, toggle, isGroup, user, chat, members, updateMembers, 
                             <BsCalendar2Date className="text-[21x] text-gray-600" />
                             <span className="text-gray-400 tex-[12px] text-start">Created At <span className="text-blue-400 text-[12px]">{createdAt}</span> </span>
                         </h1>
-                        <MembersList updateMembers={updateMembers} members={members!} adminId={chat?.adminId!} />
+                        <MembersList currentUser={currentUser} updateMembers={updateMembers} members={members!} adminId={chat?.adminId!} />
                     </>
                     : <>
                         <div className="w-full flex justify-center items-center">

@@ -3,12 +3,14 @@ import { useEffect, useMemo, useState } from "react"
 import ConversationBox from "./ConversationBox"
 import { useSession } from "next-auth/react"
 import { pusherClient } from "@/app/libs/pusher"
+import { User } from "@prisma/client"
 
 interface ConversationsListProps {
   initialConversations: FullConvoType[]
+  currentUser: User
 }
 
-const ConversationsList = ({ initialConversations }: ConversationsListProps) => {
+const ConversationsList = ({ initialConversations, currentUser }: ConversationsListProps) => {
   const [conversations, setConversations] = useState(initialConversations)
   const session = useSession()
   
@@ -56,7 +58,7 @@ const ConversationsList = ({ initialConversations }: ConversationsListProps) => 
     <ul className="flex flex-col gap-1 sm:gap-3 h-full">
       {
         conversations.sort((a, b) => +b.lastMessageAt - +a.lastMessageAt).map((conversation) => {          
-          return <ConversationBox key={conversation.id} conversation={conversation} />
+          return <ConversationBox currentUser={currentUser} key={conversation.id} conversation={conversation} />
       })
       }
     </ul>

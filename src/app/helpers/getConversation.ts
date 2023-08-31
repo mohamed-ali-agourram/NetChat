@@ -1,10 +1,10 @@
 import prisma from "@/app/libs/prisma"
-import getCurrentUser_B from "./getCurrentUser_B"
+import getCurrentUser from "./getCurrentUser"
 
 export async function getConversation(id: string) {
     try {
 
-        const user = await getCurrentUser_B()
+        const user = await getCurrentUser()
         if (!user?.email) return null
 
         const chat = await prisma.conversation.findUnique({

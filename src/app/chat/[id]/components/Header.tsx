@@ -18,9 +18,10 @@ interface HeaderProps {
     contact: User[]
     toggleSideBar: () => void
     isSideBar: boolean
+    currentUser: User
 }
 
-const Header = ({ chat, initialMembers, contact, isSideBar, toggleSideBar }: HeaderProps) => {
+const Header = ({ chat, initialMembers, contact, isSideBar, toggleSideBar, currentUser }: HeaderProps) => {
     const [members, setMembers] = useState(initialMembers)
     const { members: activeMmembers } = useActiveList()
     const otherUser = useOtherUser(chat)
@@ -58,6 +59,7 @@ const Header = ({ chat, initialMembers, contact, isSideBar, toggleSideBar }: Hea
                 onClick={toggleSideBar}
             ></div>
             <SideBar
+                currentUser={currentUser}
                 isOpen={isSideBar}
                 toggle={toggleSideBar}
                 user={otherUser!}

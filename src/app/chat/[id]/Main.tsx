@@ -13,6 +13,7 @@ interface Props {
     initialMembers: User[]
     initialMessages: (Message & { sender: User, seen: User[], conversation: { isGroup: boolean | null } })[]
     admin: User
+    currentUser: User
 }
 
 const Main = ({
@@ -20,7 +21,8 @@ const Main = ({
     chat,
     contact,
     initialMembers,
-    initialMessages
+    initialMessages,
+    currentUser
 }: Props) => {
     const [isSideBar, setIsSideBar] = useState(false)
     const [isScrolling, setIsScrolling] = useState(false);
@@ -69,7 +71,7 @@ const Main = ({
             )}>
             <BsFillArrowDownCircleFill />
         </div>
-        <Header toggleSideBar={toggleSideBar} isSideBar={isSideBar} contact={contact} chat={chat!} initialMembers={initialMembers!} />
+        <Header currentUser={currentUser} toggleSideBar={toggleSideBar} isSideBar={isSideBar} contact={contact} chat={chat!} initialMembers={initialMembers!} />
         {/* @ts-ignore */}
         <Body setMessages={setMessages} handleScroll={handleScroll} lastMessageRef={lastMessageRef} toggleSideBar={toggleSideBar} messages={messages} chat={chat!} admin={admin!} />
         <Form id={chat?.id!} />

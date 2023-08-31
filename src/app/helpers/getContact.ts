@@ -1,8 +1,8 @@
 import prisma from "@/app/libs/prisma";
-import getCurrentUser_B from "./getCurrentUser_B";
+import getCurrentUser from "./getCurrentUser";
 
 export async function getContact() {
-    const user = await getCurrentUser_B();
+    const user = await getCurrentUser();
     if (!user?.id) return [];
 
     //get all convos from ci=urrent user with other users

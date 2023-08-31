@@ -1,10 +1,7 @@
 import { User } from "@prisma/client"
-import Image from "next/image"
-import { BsFillPeopleFill, BsPersonFillAdd } from "react-icons/bs"
+import { BsFillPeopleFill } from "react-icons/bs"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import useCurrentUser from "@/app/hooks/useCurrentUser"
-import { useSession } from "next-auth/react"
 import { TiUserDelete } from "react-icons/ti"
 import clsx from "clsx"
 import { useMemo } from "react"
@@ -14,14 +11,12 @@ interface MembersListProps {
     members: User[]
     adminId: string
     mode?: string
+    currentUser: User
     updateMembers: (mode: string, id?: string, newMembers?: string[]) => void
 }
 
-const MembersList = ({ members, adminId, mode, updateMembers }: MembersListProps) => {
+const MembersList = ({ members, adminId, mode, updateMembers, currentUser }: MembersListProps) => {
     const router = useRouter()
-    const session = useSession()
-    const user_email = session.data?.user?.email
-    const currentUser = useCurrentUser(user_email)
 
     const toChat = (id: string) => {
         if (currentUser?.id !== id) {
@@ -70,11 +65,11 @@ const MembersList = ({ members, adminId, mode, updateMembers }: MembersListProps
                             src={user?.image ? user?.image : "/images/default-profile.jpg"}
                             alt="user_profile"
                             isGroup={false}
-                            addedClass="w-[9vh] h-[9vh]"
+                            addedClass="w-[7vh] h-[7vh]"
                         />
                         <div className="flex flex-col w-full">
                             <div className="relative flex w-full gap-3 items-center">
-                                <p>{user.email === user_email ? "(You)" : user.name}</p>
+                                <p>{user.email === currentUser.email ? "(You)" : user.name}</p>
                                 {
                                     user.id === adminId
                                         ? <p className="bg-blue-400 p-1 rounded-2xl text-[11px]">admin</p>
