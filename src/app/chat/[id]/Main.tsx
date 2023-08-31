@@ -72,7 +72,6 @@ const Main = ({
             <BsFillArrowDownCircleFill />
         </div>
         <Header currentUser={currentUser} toggleSideBar={toggleSideBar} isSideBar={isSideBar} contact={contact} chat={chat!} initialMembers={initialMembers!} />
-        {/* @ts-ignore */}
         <Body setMessages={setMessages} handleScroll={handleScroll} lastMessageRef={lastMessageRef} toggleSideBar={toggleSideBar} messages={messages} chat={chat!} admin={admin!} />
         <Form id={chat?.id!} />
     </main>

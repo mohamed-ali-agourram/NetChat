@@ -209,14 +209,11 @@ const ConfirmModal = ({ id, isGroup, hideModal, mode, chat, members, handleUplao
                         {
                             contact?.map((user, index) => {
                                 const isAlrdyIn = members.find(member => member.id === user.id) !== undefined ? true : false
-                                // @ts-ignore
                                 return <MenuItem
                                     disabled={isAlrdyIn}
                                     key={index}
-                                    // @ts-ignore
-                                    value={user.email}
+                                    value={user.email as string}
                                 >
-                                    {/* @ts-ignore */}
                                     {user.email}
                                 </MenuItem>
                             })

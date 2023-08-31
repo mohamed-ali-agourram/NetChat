@@ -121,10 +121,9 @@ const GroupModal = ({ hideModal, data }: GroupModalProps) => {
                         MenuProps={MenuProps}
                     >
                         {data?.map((user, index) => (
-                            //@ts-ignore
                             <MenuItem
                                 key={index}
-                                value={user.email}
+                                value={user.email as string}
                             >
                                 {user.email}
                             </MenuItem>
