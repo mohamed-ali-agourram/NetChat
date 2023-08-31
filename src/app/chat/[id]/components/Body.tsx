@@ -10,6 +10,7 @@ import useCoversation from "@/app/hooks/useCoversation";
 import Image from "next/image";
 import useOtherUser from "@/app/hooks/useOtherUser";
 import { pusherClient } from "@/app/libs/pusher";
+import ImageComponent from "@/app/compnents/ImageComponent";
 
 interface BodyProps {
     messages: (Message & { sender: User, seen: User[], conversation: { isGroup: boolean | null } })[]
@@ -82,31 +83,32 @@ const Body = ({ messages, setMessages, chat, admin, toggleSideBar, lastMessageRe
 
     return <div
         onScroll={(e) => handleScroll(e)}
-        className='chat-body h-[82vh] bg-main-bg p-3 flex flex-col justify-between gap-3 relative overflow-y-scroll'>
+        style={{ background: "radial-gradient(circle, rgba(38,41,55,1) 0%, rgba(26,27,34,1) 100%)" }}
+        className='h-[90vh] pt-[10vh] md:pt-[12vh] sm:pt-[9vh] bg-main-bg p-3 flex flex-col justify-between gap-3 relative overflow-y-scroll'>
         {
             !chat.isGroup
                 ? <div className="w-full flex flex-col items-center justify-center gap-[1px] py-3">
-                    <Image
-                        src={otherUser?.image ? otherUser.image : "/images/default-profile.jpg"}
-                        alt="profile-image"
-                        height={100}
-                        width={100}
-                        onClick={toggleSideBar}
-                        className="h-[10vh] w-[10vh] cursor-pointe rounded-full hover:scale-105"
-                    />
+                    <div onClick={toggleSideBar}>
+                        <ImageComponent
+                            src={otherUser?.image ? otherUser.image : "/images/default-profile.jpg"}
+                            alt="profile-image"
+                            isGroup={false}
+                            divClass="h-[10vh] w-[10vh] hover:scale-105"
+                        />
+                    </div>
                     <p onClick={toggleSideBar} className="text-[15px] cursor-pointer text-gray-500 font-bold">{otherUser?.name ?? "Deleted Account"}</p>
                     <p className="text-[13px] text-gray-500">{otherUser?.bio ? otherUser?.bio : ""}</p>
                     <p className="text-[11px] text-center text-gray-500">{admin?.name ? admin?.name : null} Started This Conversation on {createdAt}</p>
                 </div>
                 : <div className="w-full flex flex-col items-center justify-center gap-1 py-3">
-                    <Image
-                        onClick={toggleSideBar}
-                        src={chat.groupImage ? chat.groupImage : "/images/default-group.png"}
-                        alt="group-image"
-                        height={100}
-                        width={100}
-                        className="h-[10vh] w-[10vh] cursor-pointer rounded-full hover:scale-105"
-                    />
+                    <div onClick={toggleSideBar}>
+                        <ImageComponent
+                            src={otherUser?.image ? otherUser.image : "/images/default-profile.jpg"}
+                            alt="profile-image"
+                            isGroup={false}
+                            divClass="h-[10vh] w-[10vh] cursor-pointer hover:scale-105"
+                        />
+                    </div>
                     <p onClick={toggleSideBar} className="text-[15px] text-gray-500 font-bold cursor-pointer">{chat.name}</p>
                     <p className="text-[11px] text-center text-gray-500">{admin?.name ? (admin?.email === userEmail ? "You created this group chat" : `Created  by ${admin?.name}`) : null} on {createdAt}</p>
                 </div>

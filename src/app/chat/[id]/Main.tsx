@@ -46,7 +46,7 @@ const Main = ({
     };
 
 
-    return <main className="bg-main-bg h-screen md:w-screen flex flex-col">
+    return <main className="rleative bg-main-bg h-screen md:w-screen flex flex-col">
         <div
             title="scroll down"
             onClick={scrollDown}

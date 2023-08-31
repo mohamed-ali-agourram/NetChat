@@ -67,7 +67,7 @@ const Header = ({ chat, initialMembers, contact, isSideBar, toggleSideBar }: Hea
                 members={members}
                 updateMembers={updateMembers}
             />
-            <div className="flex p-3 sm:p-1 w-[100%] h-[10vh] md:h-[12vh] sm:h-[9vh] bg-[#0000002a] justify-between" onClick={() => {
+            <div className="fixed top-0 flex z-10 p-3 sm:p-1 w-[100%] h-[10vh] md:h-[12vh] sm:h-[9vh] bg-[#18171df2] justify-between" onClick={() => {
                 if (window.innerWidth <= 425) {
                     toggleSideBar()
                 }

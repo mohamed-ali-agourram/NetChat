@@ -13,6 +13,7 @@ import ConfirmModal from "./ConfirmModal";
 import { useSession } from "next-auth/react";
 import useCurrentUser from "@/app/hooks/useCurrentUser";
 import { BsCalendar2Date } from "react-icons/bs"
+import ImageComponent from "@/app/compnents/ImageComponent";
 
 interface SideBarProps {
     isOpen: boolean
@@ -64,7 +65,7 @@ const SideBar = ({ isOpen, toggle, isGroup, user, chat, members, updateMembers, 
     md:w-[60vw]
     sm:w-screen
     bg-[#18171d]
-    z-10
+    z-20
     flex
     flex-col
     items-center
@@ -136,14 +137,15 @@ const SideBar = ({ isOpen, toggle, isGroup, user, chat, members, updateMembers, 
                     </>
                     : <>
                         <div className="w-full flex justify-center items-center">
-                            <Image
-                                src={user?.image ? user?.image : "/images/default-profile.jpg"}
-                                alt="user_profile"
-                                height={100}
-                                width={100}
-                                onClick={() => setIsImageOpen(true)}
-                                className="rounded-full cursor-pointer hover:scale-105"
-                            />
+                            <div onClick={() => setIsImageOpen(true)}>
+                                <ImageComponent
+                                    src={user?.image ? user?.image : "/images/default-profile.jpg"}
+                                    alt="user_profile"
+                                    isGroup={false}
+                                    divClass="h-[15vh] w-[15vh]"
+                                />
+                            </div>
+
                         </div>
                         <PopUpModal
                             onClose={() => setIsImageOpen(false)}
