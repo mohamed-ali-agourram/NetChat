@@ -6,8 +6,11 @@ import { useRouter } from "next/navigation"
 import axios from "axios"
 import Spinner from "@/app/compnents/Spinner"
 import ImageComponent from "@/app/compnents/ImageComponent"
+import useActiveList from "@/app/hooks/useActiveList"
 
 const UserBox = ({ user, isSearch }: { user: User, isSearch?: boolean }) => {
+  const { members } = useActiveList()
+  const isActive = members.includes(user?.email!)
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -38,7 +41,7 @@ const UserBox = ({ user, isSearch }: { user: User, isSearch?: boolean }) => {
           {
             isSearch
               ? <p className="text-gray-600 font-bold text-sm">{user.email}</p>
-              : <p className="text-gray-600 font-bold text-sm">active</p>
+              : <p className="text-gray-600 font-bold text-sm">{isActive ? "Online" : "Oflline"}</p>
           }
 
         </div>
