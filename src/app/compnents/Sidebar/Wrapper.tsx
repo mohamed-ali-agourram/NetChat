@@ -35,7 +35,7 @@ const Wrapper = ({ children, content, data, dataLength, contact, currentUser }: 
   }
 
   return (
-    <main className="flex h-screen w-screen relative overflow-hidden z-0 md:flex-col">
+    <main className="flex h-[100dvh] w-screen relative overflow-hidden z-0 md:flex-col">
 
       <div className={clsx(`
       flex

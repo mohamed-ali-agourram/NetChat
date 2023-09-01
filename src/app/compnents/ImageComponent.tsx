@@ -20,7 +20,7 @@ const ImageComponent = ({ src, alt, isGroup, addedClass, divClass, user }: Props
         relative rounded-full inline-block overflow-hidden
         ${divClass
             ? divClass
-            : "w-[9vh] max-h-[9vh] sm:max-h-[7vh] sm:w-[8vh]"
+            : "w-[9vh] h-[9vh] sm:h-[8vh] sm:w-[8vh]"
 
         }
         ${addedClass ? addedClass : ''}`
