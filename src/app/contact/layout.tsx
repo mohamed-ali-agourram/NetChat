@@ -21,7 +21,7 @@ export default async function RootLayout({
     const currentUser = await getCurrentUser()
 
     return (
-        <Wrapper currentUser={currentUser!} dataLength={unreadMessages.length} data={contact} content={<UsersList users={contact}/>}>
+        <Wrapper currentUser={currentUser!} dataLength={unreadMessages.length} data={contact} content={<UsersList initailUsers={contact}/>}>
             {children}
         </Wrapper>
     )
