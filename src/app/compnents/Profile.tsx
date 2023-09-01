@@ -147,7 +147,7 @@ const Profile = ({ hideProfile, currentUser }: ProfileProps) => {
           />
         </div>
       </div>
-      <div className="h-full">
+      <div className="h-full flex flex-col items-end">
         <CldUploadButton
           options={{ maxFiles: 1, cropping: true }}
           onUpload={handleUplaodImage}
