@@ -11,8 +11,10 @@ const Form = ({ id }: { id: string }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    axios.post("/api/messages", { body: message, convoId: id })
-    setMessage("")
+    if (message) {
+      axios.post("/api/messages", { body: message, convoId: id })
+      setMessage("")
+    }
   }
 
   const handleImageUpload = (result: any) => {
