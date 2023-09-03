@@ -85,7 +85,7 @@ const GroupModal = ({ hideModal, data }: GroupModalProps) => {
     return (
         <form
             onSubmit={(e) => handleSubmit(e)}
-            className="min-h-[60vh] w-[40vw] md:w-[60vw] sm:w-[90vw] sm:h-[90vh] p-[2vh] flex flex-col justify-between items-start gap-3 bg-main-bg text-start"
+            className="min-h-[60vh] w-[40vw] md:w-[60vw] sm:w-[100%] sm:h-[90vh] p-[2vh] flex flex-col justify-between items-start gap-3 bg-main-bg text-start"
         >
             <div className="flex flex-col items-start">
                 <h1 className="text-[25px]">Start a Group Conversation</h1>

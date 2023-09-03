@@ -64,6 +64,7 @@ const PopUpModal: React.FC<ModalProps> = ({ isOpen, onClose, children, isCloseBu
                   shadow-xl 
                   transition-all
                   w-fit
+                  sm:w-[95%]
                 "
               >
                 <div

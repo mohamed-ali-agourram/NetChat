@@ -36,7 +36,7 @@ const ImageComponent = ({ src, alt, isGroup, addedClass, divClass, user }: Props
 
         {
             isActive
-                ? <div className="absolute w-3 h-3 p-[1px] bg-white rounded-full right-0 bottom-[3px]">
+                ? <div className="absolute w-3 h-3 p-[1px] bg-white rounded-full right-0 bottom-[3px] sm:bottom-0 xsm:-bottom-[1px] xsm:w-[2vh] xsm:h-[2vh]">
                     <div className="bg-green-700 w-full h-full rounded-full"></div>
                 </div>
                 : null
