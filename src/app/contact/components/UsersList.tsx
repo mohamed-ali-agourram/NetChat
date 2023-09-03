@@ -16,7 +16,6 @@ const UsersList = ({ initailUsers }: { initailUsers: User[] }) => {
     if (!user_email) return;
 
     const handleNew = (newConvo: FullConvoType) => {
-      console.log(newConvo);
       if (newConvo.isGroup === false) {
         const usersToAdd = newConvo.users.filter((newUser) => {
           return !users.some((existingUser) => existingUser.id === newUser.id);

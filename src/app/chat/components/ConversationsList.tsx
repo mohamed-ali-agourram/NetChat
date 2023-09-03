@@ -26,17 +26,28 @@ const ConversationsList = ({ initialConversations, currentUser }: ConversationsL
     };
 
     const updateConvoHandler = (conversation: FullConvoType) => {
-      setConversations((current) => current.map((currentConversation) => {
-        if (currentConversation.id === conversation.id) {
-          console.log(conversation.lastMessageAt);
-          return {
-            ...currentConversation,
-            messages: conversation.messages
-          };
-        }
-        return currentConversation;
-      }));
-    }
+      setConversations((current) => {
+        const updatedConversations = current.map((currentConversation) => {
+          if (currentConversation.id === conversation.id) {
+            return {
+              ...currentConversation,
+              lastMessageAt: new Date(),
+              messages: conversation.messages
+            };
+          }
+          return currentConversation;
+        });
+        
+        updatedConversations.sort((a, b) => {
+          const dateA = new Date(a.lastMessageAt).getTime();
+          const dateB = new Date(b.lastMessageAt).getTime();
+          return dateB - dateA;
+        });
+    
+        return updatedConversations;
+      });
+    };
+    
 
     const deleteConvoHandler = (deltedConvo: FullConvoType) => {
       setConversations((prevState) => prevState.filter((convo) => convo.id !== deltedConvo.id));
@@ -56,7 +67,7 @@ const ConversationsList = ({ initialConversations, currentUser }: ConversationsL
   }, [pusherChannel, conversations])
 
   return (
-    <ul className="flex flex-col gap-1 sm:gap-3 h-full">
+    <ul className="flex flex-col gap-1 sm:gap-3 h-full transition duration-500">
       {
         conversations
           .map((conversation) => (
