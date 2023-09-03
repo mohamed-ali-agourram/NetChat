@@ -33,7 +33,6 @@ const Profile = ({ hideProfile, currentUser }: ProfileProps) => {
   const [name, setName] = useState(currentUser?.name ?? "");
   const [bio, setBio] = useState(currentUser?.bio ?? "");
 
-
   const updateProfielCallback = async () => {
     try {
       await axios.put("/api/settings", { name, bio })

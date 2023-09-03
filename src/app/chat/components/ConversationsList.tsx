@@ -13,7 +13,7 @@ interface ConversationsListProps {
 const ConversationsList = ({ initialConversations, currentUser }: ConversationsListProps) => {
   const [conversations, setConversations] = useState(initialConversations)
   const session = useSession()
-  
+
   const pusherChannel = useMemo(() => {
     return session?.data?.user?.email
   }, [session])
@@ -28,6 +28,7 @@ const ConversationsList = ({ initialConversations, currentUser }: ConversationsL
     const updateConvoHandler = (conversation: FullConvoType) => {
       setConversations((current) => current.map((currentConversation) => {
         if (currentConversation.id === conversation.id) {
+          console.log(conversation.lastMessageAt);
           return {
             ...currentConversation,
             messages: conversation.messages
@@ -36,7 +37,7 @@ const ConversationsList = ({ initialConversations, currentUser }: ConversationsL
         return currentConversation;
       }));
     }
-    
+
     const deleteConvoHandler = (deltedConvo: FullConvoType) => {
       setConversations((prevState) => prevState.filter((convo) => convo.id !== deltedConvo.id));
     };
@@ -57,9 +58,14 @@ const ConversationsList = ({ initialConversations, currentUser }: ConversationsL
   return (
     <ul className="flex flex-col gap-1 sm:gap-3 h-full">
       {
-        conversations.sort((a, b) => +b.lastMessageAt - +a.lastMessageAt).map((conversation) => {          
-          return <ConversationBox currentUser={currentUser} key={conversation.id} conversation={conversation} />
-      })
+        conversations
+          .map((conversation) => (
+            <ConversationBox
+              currentUser={currentUser}
+              key={conversation.id}
+              conversation={conversation}
+            />
+          ))
       }
     </ul>
   )

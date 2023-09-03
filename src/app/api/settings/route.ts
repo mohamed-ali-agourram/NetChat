@@ -1,5 +1,6 @@
 import getCurrentUser from "@/app/helpers/getCurrentUser"
 import prisma from "@/app/libs/prisma"
+import { pusherServer } from "@/app/libs/pusher"
 import { NextResponse } from "next/server"
 
 export async function DELETE() {
@@ -79,6 +80,7 @@ export async function PUT(request: Request) {
             }
         })
 
+        pusherServer.trigger(currentUser.email!, "settings:profile", updated_profile)
         return NextResponse.json(updated_profile)
     } catch (error: any) {
         return NextResponse.json(`Internal Error ${error}`, { status: 500 })

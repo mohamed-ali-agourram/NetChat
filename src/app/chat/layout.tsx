@@ -25,7 +25,7 @@ export default async function RootLayout({
 
   return (
     <Wrapper
-      currentUser={currentUser!}
+    initialCurrentUserData={currentUser!}
       contact={contact}
       dataLength={unreadMessages.length}
       data={unreadMessages}

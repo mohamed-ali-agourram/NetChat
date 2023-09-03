@@ -1,13 +1,14 @@
 "use client"
 import NavigationBar from "./NavigationBar"
 import SideBar from "./SideBar"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Profile from "../Profile";
 import { useMemo } from "react";
 import { User } from "@prisma/client";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import PopUpModal from "../Modals/PopUpModal";
+import { pusherClient } from "@/app/libs/pusher";
 
 interface WrapperProps {
   children: React.ReactNode
@@ -15,12 +16,29 @@ interface WrapperProps {
   data?: any
   dataLength?: number
   contact?: User[]
-  currentUser?: User
+  initialCurrentUserData?: User
 }
 
-const Wrapper = ({ children, content, data, dataLength, contact, currentUser }: WrapperProps) => {
+const Wrapper = ({ children, content, data, dataLength, contact, initialCurrentUserData }: WrapperProps) => {
+  const [currentUser, setCurrentUser] = useState(initialCurrentUserData)
   const [isProfile, setIsProfile] = useState(false)
   const pathname = usePathname()
+
+  useEffect(() => {
+    if (!currentUser) return
+
+    const handleUpdate = (updatedProfile: User) => {
+      setCurrentUser(updatedProfile)
+    }
+
+    pusherClient.subscribe(currentUser.email!)
+    pusherClient.bind("settings:profile", handleUpdate)
+
+    return () => {
+      pusherClient.unsubscribe(currentUser.email!)
+      pusherClient.unbind("settings:profile", handleUpdate)
+    }
+  }, [currentUser])
 
   const isOpen = useMemo(() => {
     return !!pathname?.match(/^\/chat\/[^/]+$/);

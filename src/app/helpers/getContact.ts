@@ -5,45 +5,47 @@ export async function getContact() {
     const user = await getCurrentUser();
     if (!user?.id) return [];
 
-    //get all convos from ci=urrent user with other users
-    const currentUserConversations = await prisma.user.findUnique({
-        where: {
-            email: user.email!
-        },
-        include: {
-            conversations: {
-                select: {
-                    users: {
-                        where: {
-                            id: { not: user.id }
+    try {
+        const currentUserConversations = await prisma.user.findUnique({
+            where: {
+                email: user.email!
+            },
+            include: {
+                conversations: {
+                    select: {
+                        users: {
+                            where: {
+                                id: { not: user.id }
+                            }
                         }
                     }
                 }
             }
-        }
-    });
+        });
 
-    //get users ids
-    if (currentUserConversations) {
-        const usersIds: string[] = [];
+        //get users ids
+        if (currentUserConversations) {
+            const usersIds: string[] = [];
 
-        currentUserConversations.conversations.forEach(conversation => {
-            conversation.users.forEach(user => {
-                usersIds.push(user.id);
+            currentUserConversations.conversations.forEach(conversation => {
+                conversation.users.forEach(user => {
+                    usersIds.push(user.id);
+                });
             });
-        });
 
-        //get users using usersIds
-        const users = await prisma.user.findMany({
-            where: {
-                id: {
-                    in: usersIds
+            const users = await prisma.user.findMany({
+                where: {
+                    id: {
+                        in: usersIds
+                    },
                 },
-            },
-        });
+            });
 
-        return users;
-    } else {
-        return [];
+            return users;
+        } else {
+            return [];
+        }
+    } catch (error: any) {
+        return []
     }
 }
