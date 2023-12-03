@@ -4,8 +4,8 @@
 Welcome to our Real-Time Communication App, a cutting-edge platform developed with Next.js to provide seamless and instantaneous communication experiences. This app leverages the power of the Pusher API for real-time sockets, ensuring swift and reliable communication. Tailwind CSS is employed for styling, creating an aesthetically pleasing and responsive user interface.
 
 Visit [https://net-chat.vercel.app/](https://net-chat.vercel.app/)
- / email: mike_12@gmail.com
- / password: mike_12@2023
+ / email: demo_2023@gmail.com
+ / password: demo_2023
 
 ## Features
 
