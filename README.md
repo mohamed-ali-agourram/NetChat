@@ -37,8 +37,8 @@ Tailwind CSS is employed to create a visually appealing and responsive user inte
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/real-time-communication-app.git`
-2. Navigate to the project folder: `cd real-time-communication-app`
+1. Clone the repository: `git clone https://github.com/mohamed-ali-agourram/NetChat.git`
+2. Navigate to the project folder: `cd NetChat`
 3. Install dependencies: `npm install`
 4. Configure Pusher API credentials: Add your Pusher API credentials to the `.env` file.
 5. Start the development server: `npm run dev`
