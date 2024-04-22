@@ -2,7 +2,7 @@
 import useOtherUser from "@/app/hooks/useOtherUser"
 import clsx from "clsx"
 import { usePathname } from "next/navigation"
-import { useMemo, useState, useEffect } from "react"
+import { useMemo, useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { Message, User } from "@prisma/client"
 import { useSession } from "next-auth/react"
@@ -98,6 +98,17 @@ const ConversationBox = ({ conversation, currentUser }: Props) => {
     router.push("/chat/" + conversation.id)
   }
 
+  const truncateText = useCallback(
+    (text: string | null, maxLength: number): string => {
+      if (text === null) return "";
+      if (text.length > maxLength) {
+        return text.slice(0, maxLength) + '...';
+      }
+      return text;
+    },
+    []
+  );
+
   return (
     <li
       onClick={toChat}
@@ -139,7 +150,7 @@ const ConversationBox = ({ conversation, currentUser }: Props) => {
                 )}>
                   {
                     lastMessage
-                      ? (isCurrentUser ? "You: " : `${lastMessageSender[0]?.name}: `)! + (lastMessage.image ? "Sent an image" : lastMessage.body)
+                      ? (isCurrentUser ? "You: " : `${lastMessageSender[0]?.name}: `)! + (lastMessage.image ? "Sent an image" : truncateText(lastMessage.body, 25))
                       : (isAdmin ? "You created this group chat" : `${admin[0].name} Created this group chat`)
                   }
                 </p>
