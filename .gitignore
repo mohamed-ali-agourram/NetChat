@@ -36,3 +36,5 @@ next-env.d.ts
 
 # private files
 *.txt
+
+*.env

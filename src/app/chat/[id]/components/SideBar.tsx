@@ -69,6 +69,7 @@ const SideBar = ({ isOpen, toggle, isGroup, user, chat, members, updateMembers, 
     pt-5
     justify-between
     transition duration-500
+    overflow-y-scroll
     `,
         isOpen === false ? "translate-x-[100%]" : "translate-x-[0%]"
     )}>
