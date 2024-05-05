@@ -166,7 +166,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isRegister }) => {
             <button
                 disabled={loading as boolean}
                 type="button"
-                className={clsx(`flex items-center justify-center gap-2 bg-white text-black p-3 w-full rounded text-sm text-1x duration-300 sm:p-4 text-[15px]
+                className={clsx(`flex items-center justify-center gap-2 bg-white text-black p-3 w-full rounded text-sm text-1x duration-300 sm:p-4 text-[15px] select-none
                 `, loading && "disabled")}
                 onClick={googleProvider}
             >
