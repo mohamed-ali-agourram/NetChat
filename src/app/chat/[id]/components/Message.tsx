@@ -115,7 +115,7 @@ const Message = ({
                 className="flex relative gap-1 justify-end items-center p-1">
                 {
                   isModal
-                    ? <div className="absolute top-1 right-[80%] w-fit text-[12px] flex flex-col gap-2 bg-[#000000c7] rounded-md p-2">
+                    ? <div className="absolute top-1 right-[80%] w-fit text-[12px] flex flex-col gap-2 bg-[#000000c7] rounded-md p-2 z-10">
                       {
                         message.seen.filter(user => user.email !== user_email).map(user => {
                           return <p className="whitespace-nowrap" key={user.id} >{user.name}</p>
